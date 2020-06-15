@@ -39,7 +39,7 @@ void insertion_sort_list(listint_t **list)
 	{
 		prev = element->prev;
 		move = element;
-		while (move->prev && move->n < prev->n)
+		while (move->prev && move->n <= prev->n)
 		{
 			element = swap_element(prev, move, list);
 			print_list(*list);
