@@ -23,19 +23,20 @@ void selection_sort(int *array, size_t size)
 {
 	unsigned int h;
 	unsigned int b;
-	unsigned int min_idx;
+	unsigned int min_idx = 0;
 
 	for (h = 0; h < size; h++)
 	{
 		min_idx = h;
-		for (b = h + 1; b < size; b++)
+		for (b = h; b < size; b++)
 		{
 			if (array[b] < array[min_idx])
-			{
 				min_idx = b;
-				swap_2(&array[min_idx], &array[h]);
-				print_array(array, size);
-			}
+		}
+		if (min_idx != h)
+		{
+			swap_2(&array[min_idx], &array[h]);
+			print_array(array, size);
 		}
 	}
 }
