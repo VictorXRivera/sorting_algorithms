@@ -34,7 +34,7 @@ void insertion_sort_list(listint_t **list)
 
 	if (!list || !(*list))
 		return;
-	
+
 	element = (*list)->next;
 
 	while (element)
