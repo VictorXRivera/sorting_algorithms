@@ -29,11 +29,13 @@ listint_t *swap_element(listint_t *left, listint_t *right, listint_t **list)
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *element = (*list)->next;
+	listint_t *element;
 	listint_t *prev, *move;
 
 	if (!list || !(*list))
 		return;
+	
+	element = (*list)->next;
 
 	while (element)
 	{
