@@ -32,14 +32,14 @@ void insertion_sort_list(listint_t **list)
 	listint_t *element = (*list)->next;
 	listint_t *prev, *move;
 
-	if (!list || !(*list) || (!((*list)->prev) && !((*list)->next)))
+	if (!list || !(*list))
 		return;
 
 	while (element)
 	{
 		prev = element->prev;
 		move = element;
-		while (move->prev && move->n < prev->n)
+		while ((move->prev != NULL) && (move->prev && move->n < prev->n))
 		{
 			element = swap_element(prev, move, list);
 			print_list(*list);
