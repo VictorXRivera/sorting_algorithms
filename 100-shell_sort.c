@@ -10,6 +10,9 @@ void shell_sort(int *array, size_t size)
 {
 	size_t h, b, j, temp;
 
+	if (array == NULL || size < 2)
+		return;
+
 	for (h = size / 2; h > 0; h = h / 2)
 	{
 		for (b = h; b < size; b++)
@@ -17,7 +20,9 @@ void shell_sort(int *array, size_t size)
 			for (j = b - h; j > 0; j = j - h)
 			{
 				if (array[j + h] >= array[j])
+				{
 					break;
+				}
 				else
 				{
 					temp = array[j];
