@@ -1,53 +1,36 @@
 #include "sort.h"
 
 /**
- * swap_element - swap doubly list elements
- * @left: element
- * @right: element
- * @list: list
- * Return: ptr to an element
- */
-listint_t *swap_element(listint_t *left, listint_t *right, listint_t **list)
-{
-	if (left->prev)
-		(left->prev)->next = right;
-	else
-		*list = right, right->prev = NULL;
-	if ((right->next))
-		(right->next)->prev = left;
-	right->prev = left->prev;
-	left->prev = right;
-	left->next = right->next;
-	right->next = left;
-	return (left);
-}
-
-/**
- * insertion_sort_list - sorts list in ascending order
- * @list: doubly linked list
- * Return: Void
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *element = (*list)->next;
-	listint_t *prev, *move;
+	listint_t *e = (*list)->next;
 
-	if (!list || !(*list))
+	if (!list || !*list)
 		return;
 
-	while (element)
+	while (e)
 	{
-		prev = element->prev;
-		move = element;
-		while ((move->prev != NULL) && (move->prev && move->n < prev->n))
+		while ((e->prev != NULL) && (e->prev->n > e->n))
 		{
-			element = swap_element(prev, move, list);
+			e->prev->next = e->next;
+			if (e->next)
+				e->next->prev = e->prev;
+
+			e->next = e->prev;
+			e->prev = e->prev->prev;
+			e->next->prev = e;
+
+			if(e->prev == NULL)
+			{
+				*list = e;
+			}
+			else
+			{
+				e->prev->next = e;
+			}
 			print_list(*list);
-			if (!move->prev)
-				break;
-			prev = move->prev;
 		}
-		element = element->next;
-		prev = prev->next;
+		e = e->next;
 	}
 }
