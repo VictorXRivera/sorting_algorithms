@@ -18,40 +18,37 @@ void swap(int *a, int *b)
  * @high: higher than pivot
  * Return: Void
  */
-int partition(int *array, int low, int high)
+unsigned int partition(int *array, size_t size)
 {
-	int pivot = array[high];
-	int i = (low - 1);
-	int j;
+	unsigned int ele = 0, swap_ele = 0;
+	static size_t a_size, pivot = 1;
+	static int *start;
 
-	for (j = low; j <= high - 1; j++)
+	if (pivot)
 	{
-		if (array[j] < pivot)
+		start = array;
+		a_size = size;
+		pivot = 0;
+	}
+	while (ele < size)
+	{
+		if (array[ele] < array[size - 1])
 		{
-			i++;
-			swap(&array[i], &array[j]);
+			if (ele != swap_ele)
+			{
+				swap(&(array[ele]), &(array[swap_ele]));
+				print_array(start, a_size);
+			}
+			swap_ele++;
 		}
+		ele++;
 	}
-	swap(&array[i + 1], &array[high]);
-	return (i + 1);
-}
-/**
- * quickSort - true quick sort
- * @array: array to sort through
- * @low: smaller number
- * @high: higher number
- * Return: Void
- */
-void quickSort(int *array, int low, int high)
-{
-	int idx;
-
-	if (low < high)
+	if (array[ele - 1] < array[swap_ele])
 	{
-		idx = partition(array, low, high);
-		quickSort(array, low, idx - 1);
-		quickSort(array, idx + 1, high);
+		swap(&(array[ele - 1]), &(array[swap_ele]));
+		print_array(start, a_size);
 	}
+	return (swap_ele);
 }
 /**
  * quick_sort - quick sort algorithm
@@ -61,6 +58,13 @@ void quickSort(int *array, int low, int high)
  */
 void quick_sort(int *array, size_t size)
 {
-	quickSort(array, *array, *array);
-	print_array(array, size);
+	unsigned int piv;
+
+	if (array == NULL || size < 2)
+		return;
+
+	piv = partition(array, size);
+
+	quick_sort(array, piv);
+	quick_sort(array + piv + 1, size - piv - 1);
 }
