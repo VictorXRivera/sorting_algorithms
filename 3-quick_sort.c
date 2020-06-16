@@ -14,8 +14,8 @@ void swap(int *a, int *b)
 }
 /**
  * partition - Lomuto scheme
- * @low: smaller than pivot
- * @high: higher than pivot
+ * @array: array to partition
+ * @size: size of array
  * Return: Void
  */
 unsigned int partition(int *array, size_t size)
